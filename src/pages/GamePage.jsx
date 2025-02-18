@@ -17,7 +17,8 @@ const GamePage = () => {
     const fetchQuestions = async () => {
       const category = categories.join(','); // join categories for API query
       const difficultyLevel = difficulty.join(','); //join difficulties for API query
-      const url = `https://the-trivia-api.com/v2/questions?categories=${category}&difficulty=${difficultyLevel}&limit=${numQuestions}`
+      console.log("difficulty: ", difficultyLevel)
+      const url = `https://the-trivia-api.com/v2/questions?categories=${category}&difficulties=${difficultyLevel}&limit=${numQuestions}`
       
       try {
         const response = await fetch(url)

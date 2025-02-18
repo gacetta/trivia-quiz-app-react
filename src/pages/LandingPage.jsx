@@ -128,7 +128,7 @@ const LandingPage = () => {
                 <label>
                     <input
                         type="checkbox"
-                        value="Easy"
+                        value="easy"
                         onChange={handleDifficultyChange}
                     />
                     Easy
@@ -136,7 +136,7 @@ const LandingPage = () => {
                 <label>
                     <input
                         type="checkbox"
-                        value="Medium"
+                        value="medium"
                         onChange={handleDifficultyChange}
                     />
                     Medium
@@ -144,7 +144,7 @@ const LandingPage = () => {
                 <label>
                     <input
                         type="checkbox"
-                        value="Hard"
+                        value="hard"
                         onChange={handleDifficultyChange}
                     />
                     Hard
