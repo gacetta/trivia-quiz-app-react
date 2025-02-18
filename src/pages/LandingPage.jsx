@@ -53,15 +53,39 @@ const LandingPage = () => {
             <label>
                 <input
                     type="checkbox"
-                    value="Science"
+                    value="music"
                     onChange={handleCategoryChange}
                 />
-                Science
+                Music
             </label>
             <label>
                 <input
                     type="checkbox"
-                    value="History"
+                    value="sport_and_leisure"
+                    onChange={handleCategoryChange}
+                />
+                Sport & Leisure
+            </label>
+            <label>
+                <input
+                    type="checkbox"
+                    value="film_and_tv"
+                    onChange={handleCategoryChange}
+                />
+                Film & TV
+            </label>
+            <label>
+                <input
+                    type="checkbox"
+                    value="arts_and_literature"
+                    onChange={handleCategoryChange}
+                />
+                Arts & Literature
+            </label>
+            <label>
+                <input
+                    type="checkbox"
+                    value="history"
                     onChange={handleCategoryChange}
                 />
                 History
@@ -69,10 +93,34 @@ const LandingPage = () => {
             <label>
                 <input
                     type="checkbox"
-                    value="Sports"
+                    value="society_and_culture"
                     onChange={handleCategoryChange}
                 />
-                Sports
+                Society & Culture
+            </label>
+            <label>
+                <input
+                    type="checkbox"
+                    value="science"
+                    onChange={handleCategoryChange}
+                />
+                Science
+            </label>
+            <label>
+                <input
+                    type="checkbox"
+                    value="geography"
+                    onChange={handleCategoryChange}
+                />
+                Geography
+            </label>
+            <label>
+                <input
+                    type="checkbox"
+                    value="general_knowledge"
+                    onChange={handleCategoryChange}
+                />
+                General Knowledge
             </label>
             {/* Difficulty */}
             <div>
