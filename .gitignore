@@ -1,0 +1,30 @@
+# Node modules
+/node_modules/
+
+# Vite build output
+/dist/
+
+# .env files (for sensitive information like API keys, DB creds, etc.)
+.env
+.env.* 
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor-specific files (optional, depending on your editor)
+.vscode/
+.idea/
+
+# Dependency directories
+pnpm-lock.yaml
+yarn.lock
+
+# Coverage folder (if using testing coverage tools like Jest)
+coverage/
+
+# npm-debug.log (npm error logs)
+npm-debug.log*
