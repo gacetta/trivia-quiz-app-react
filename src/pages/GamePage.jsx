@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const GamePage = () => {
+  const navigate = useNavigate();
   // Retrieve state passed from Landing Page
   const location = useLocation();
   const { categories, difficulty, numQuestions } = location.state;
@@ -11,6 +12,8 @@ const GamePage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [resultVisible, setResultVisible] = useState(false);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);
 
   // Fetch trivia questions based on selected categories, difficulty and numQuestions
   useEffect(() => {
@@ -37,15 +40,34 @@ const GamePage = () => {
   const handleAnswerChange = (event) => {
     setSelectedAnswer(event.target.value);
   };
-
+  
   // check the answer and move to next questions
   const handleSubmitAnswer = () => {
-    if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
+    if (!selectedAnswer) return; // Prevent submitting without an answer
+
+    const isCorrect = selectedAnswer === questions[currentQuestionIndex].correctAnswer
+    setIsAnswerCorrect(isCorrect);
+    setResultVisible(true);
+
+    if (isCorrect) {
       setScore(score + 1);
     }
-    setSelectedAnswer(null); // reset answer for next question
-    setCurrentQuestionIndex(currentQuestionIndex + 1); // move to next question
   }
+
+  // Move to the next question
+  const handleNextQuestion = () => {
+    setResultVisible(false);
+    setIsAnswerCorrect(null);
+    setSelectedAnswer(null);
+
+    if (currentQuestionIndex + 1 < numQuestions) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setCurrentQuestionIndex(0);
+      setScore(0);
+      navigate('/');
+    }
+  };
 
   // display the current question and options:
   if (questions.length === 0) {
@@ -73,30 +95,35 @@ const GamePage = () => {
                 value={answer}
                 checked={selectedAnswer === answer}
                 onChange={handleAnswerChange}
+                disabled={resultVisible} //Disable selection after submission
               />
               {answer}
             </label>
           ))}
         </div>
 
-        <button onClick={handleSubmitAnswer}>Submit Answer</button>
+        {!resultVisible && <button onClick={handleSubmitAnswer} disabled={!selectedAnswer}>Submit Answer</button>}
+
+        {/* Show feedback after answer is submitted */}
+        {resultVisible && (
+          <div>
+            <p style={{ color: isAnswerCorrect ? 'green' : 'red' }}>
+              {isAnswerCorrect ? "Correct! 🎉" : "Incorrect 😞"}
+            </p>
+            <button onClick={handleNextQuestion}>
+              {currentQuestionIndex + 1 < numQuestions ? "Next Question" : "New Game"}
+            </button>
+          </div>
+        )}  
+
         <nav>
         <Link to='/'>
-            <button>To LandingPage.jsx</button>
+            <button>Back to Home</button>
         </Link>
       </nav>
       </div>
     </div>
   );
 };
-
-//   return (
-//     <div>
-//       <h1>Trivia Game</h1>
-//       {/* Add your question and answer choices here */}
-//       <button>Submit Answer</button>
-//     </div>
-//   );
-// };
 
 export default GamePage;
