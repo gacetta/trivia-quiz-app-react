@@ -35,12 +35,14 @@ const LandingPage = () => {
     const handleStartGame = (event) => {
         event.preventDefault();
 
+        const selectedNumQuestions = numQuestions ? numQuestions : 10;
+
         // on button press, navigate to the GamePage and pass selected state
         navigate('/game', {
             state: {
                 categories,
                 difficulty,
-                numQuestions
+                numQuestions: selectedNumQuestions
             }
         });
     };
