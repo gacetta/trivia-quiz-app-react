@@ -77,49 +77,57 @@ const GamePage = () => {
 
 
   return (
-    <div className={styles.container}>
-      <h1>Trivia Game</h1>
-      <div>
-        <p className={styles.score}>Score: {score}</p>
-        <p>Question {currentQuestionIndex + 1} / {numQuestions}</p>
-        <p>Category: {currentQuestion.category}</p>
-        <p>Difficulty: {currentQuestion.difficulty}</p>
-
-        <div>
-          <h3 className={styles.question}>{currentQuestion.question.text}</h3>
-          {currentQuestion.incorrectAnswers.concat(currentQuestion.correctAnswer).sort().map((answer, index) => (
-            <label key={index}>
-              <input
-                type="radio"
-                value={answer}
-                checked={selectedAnswer === answer}
-                onChange={handleAnswerChange}
-                disabled={resultVisible} //Disable selection after submission
-              />
-              {answer}
-            </label>
-          ))}
-        </div>
-
-        {!resultVisible && <button className={styles.button} onClick={handleSubmitAnswer} disabled={!selectedAnswer}>Submit Answer</button>}
-
-        {/* Show feedback after answer is submitted */}
-        {resultVisible && (
-          <div>
-            <p style={{ color: isAnswerCorrect ? 'green' : 'red' }}>
-              {isAnswerCorrect ? "Correct! 🎉" : "Incorrect 😞"}
-            </p>
-            <button className={styles.button} onClick={handleNextQuestion}>
-              {currentQuestionIndex + 1 < numQuestions ? "Next Question" : "New Game"}
-            </button>
+    <div className={styles.pageContainer}>
+      <div className={styles.appContainer}>
+        <h1 className={styles.title}>Trivia Game</h1>
+        <div className={styles.gameContainer}>
+          <div className={styles.gameInfoContainer}>
+            <p className={styles.score}>Score: {score}</p>
+            <p className={styles.questionCounter}>Question {currentQuestionIndex + 1} / {numQuestions}</p>
           </div>
-        )}  
+          <div className={styles.questionInfoContainer}>
+            <p><strong>CATEGORY: </strong><i>{currentQuestion.category.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())}</i></p>
+            <p><strong>DIFFICULTY: </strong><i>{currentQuestion.difficulty.replace(/\b\w/g, (char) => char.toUpperCase())}</i></p>
+          </div>
 
-        <nav>
-        <Link to='/'>
-            <button className={styles.button}>Back to Home</button>
-        </Link>
-      </nav>
+          <div className={styles.questionContainer}>
+            <h3 className={styles.question}>{currentQuestion.question.text}</h3>
+            <div className={styles.choicesContainer}>
+              {currentQuestion.incorrectAnswers.concat(currentQuestion.correctAnswer).sort().map((answer, index) => (
+                <label key={index} className={styles.choice}>
+                  <input
+                    type="radio"
+                    value={answer}
+                    checked={selectedAnswer === answer}
+                    onChange={handleAnswerChange}
+                    disabled={resultVisible} //Disable selection after submission
+                  />
+                  {answer}
+                </label>
+              ))}
+            </div>
+            {!resultVisible && <button className={styles.button} onClick={handleSubmitAnswer} disabled={!selectedAnswer}>Submit Answer</button>}
+          </div>
+
+
+          {/* Show feedback after answer is submitted */}
+          {resultVisible && (
+            <div>
+              <p style={{ color: isAnswerCorrect ? 'green' : 'red' }}>
+                {isAnswerCorrect ? "Correct! 🎉" : "Incorrect 😞"}
+              </p>
+              <button className={styles.button} onClick={handleNextQuestion}>
+                {currentQuestionIndex + 1 < numQuestions ? "Next Question" : "New Game"}
+              </button>
+            </div>
+          )}  
+
+        </div>
+          <nav>
+          <Link to='/'>
+              <button className={styles.button}>Back to Home</button>
+          </Link>
+        </nav>
       </div>
     </div>
   );
