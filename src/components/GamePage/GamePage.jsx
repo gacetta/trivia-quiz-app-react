@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import styles from './GamePage.module.css'
 
 const GamePage = () => {
   const navigate = useNavigate();
@@ -20,13 +21,11 @@ const GamePage = () => {
     const fetchQuestions = async () => {
       const category = categories.join(','); // join categories for API query
       const difficultyLevel = difficulty.join(','); //join difficulties for API query
-      console.log("difficulty: ", difficultyLevel)
       const url = `https://the-trivia-api.com/v2/questions?categories=${category}&difficulties=${difficultyLevel}&limit=${numQuestions}`
       
       try {
         const response = await fetch(url)
         const data = await response.json();
-        console.log(data)
         setQuestions(data);
       } catch (error) {
         console.error('Error fetching questions: ', error)
@@ -78,16 +77,16 @@ const GamePage = () => {
 
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Trivia Game</h1>
       <div>
-        <p>Score: {score}</p>
+        <p className={styles.score}>Score: {score}</p>
         <p>Question {currentQuestionIndex + 1} / {numQuestions}</p>
         <p>Category: {currentQuestion.category}</p>
         <p>Difficulty: {currentQuestion.difficulty}</p>
 
         <div>
-          <h3>{currentQuestion.question.text}</h3>
+          <h3 className={styles.question}>{currentQuestion.question.text}</h3>
           {currentQuestion.incorrectAnswers.concat(currentQuestion.correctAnswer).sort().map((answer, index) => (
             <label key={index}>
               <input
@@ -102,7 +101,7 @@ const GamePage = () => {
           ))}
         </div>
 
-        {!resultVisible && <button onClick={handleSubmitAnswer} disabled={!selectedAnswer}>Submit Answer</button>}
+        {!resultVisible && <button className={styles.button} onClick={handleSubmitAnswer} disabled={!selectedAnswer}>Submit Answer</button>}
 
         {/* Show feedback after answer is submitted */}
         {resultVisible && (
@@ -110,7 +109,7 @@ const GamePage = () => {
             <p style={{ color: isAnswerCorrect ? 'green' : 'red' }}>
               {isAnswerCorrect ? "Correct! 🎉" : "Incorrect 😞"}
             </p>
-            <button onClick={handleNextQuestion}>
+            <button className={styles.button} onClick={handleNextQuestion}>
               {currentQuestionIndex + 1 < numQuestions ? "Next Question" : "New Game"}
             </button>
           </div>
@@ -118,7 +117,7 @@ const GamePage = () => {
 
         <nav>
         <Link to='/'>
-            <button>Back to Home</button>
+            <button className={styles.button}>Back to Home</button>
         </Link>
       </nav>
       </div>

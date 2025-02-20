@@ -1,15 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
-import GamePage from './pages/GamePage';
+import LandingPage from './components/LandingPage/LandingPage';
+import GamePage from './components/GamePage/GamePage';
+import styles from './App.module.css'
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/game" element={<GamePage />} />
-      </Routes>
-    </Router>
+    <div className={styles.appContainer}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/game" element={<GamePage />} />
+        </Routes>
+      </Router>
+    </div>
   );
 };
 
