@@ -19,11 +19,23 @@ const GamePage = () => {
   // Fetch trivia questions based on selected categories, difficulty and numQuestions
   useEffect(() => {
     const fetchQuestions = async () => {
-      const category = categories.join(','); // join categories for API query
-      const difficultyLevel = difficulty.join(','); //join difficulties for API query
-      const url = `https://the-trivia-api.com/v2/questions?categories=${category}&difficulties=${difficultyLevel}&limit=${numQuestions}`
+      const category = categories.length > 0 ? `categories=${categories.join(',')}` : ''; // Default to all categories if empty
+      const difficultyLevel = difficulty.length > 0 ? `difficulties=${difficulty.join(',')}` : ''; // Default to all difficulties if empty
+      const questionsCount = numQuestions > 0 ? `limit=${numQuestions}` : `limit=10`; // Default to 10 questions if not selected
+      let url = `https://the-trivia-api.com/v2/questions?`
+
+      if (category) url += `${category}&`
+      if (difficultyLevel) url += `${difficultyLevel}&`
+      url += questionsCount
+
+
+
+      // const category = categories.join(','); // join categories for API query
+      // const difficultyLevel = difficulty.join(','); //join difficulties for API query
+      // const url = `https://the-trivia-api.com/v2/questions?categories=${category}&difficulties=${difficultyLevel}&limit=${numQuestions}`
       
       try {
+        console.log(url)
         const response = await fetch(url)
         const data = await response.json();
         setQuestions(data);
