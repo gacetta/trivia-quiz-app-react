@@ -94,12 +94,6 @@ const GamePage = () => {
         <h1 className={styles.title}>Trivia Game</h1>
         <hr className={styles.horizontalBreak} />
         <div className={styles.gameContainer}>
-          {/* <div className={styles.gameInfoContainer}>
-            <p className={styles.score}>Score: {score}</p>
-            <p><span className={styles.questionAttributeLabel}>QUESTION:</span> <span className={styles.questionAttributeValue}>{currentQuestionIndex + 1} / {numQuestions}</span></p>
-            <p><span className={styles.questionAttributeLabel}>CATEGORY:</span><span className={styles.questionAttributeValue}>{currentQuestion.category.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())}</span></p>
-            <p><span className={styles.questionAttributeLabel}>DIFFICULTY:</span><span className={styles.questionAttributeValue}>{currentQuestion.difficulty.replace(/\b\w/g, (char) => char.toUpperCase())}</span></p>
-          </div> */}
           <div className={styles.gameInfoContainer}>
             <div className={`${styles.attributeBox} ${styles.score}`}>
                 <div className={styles.attributeLabel}>Score:</div>
@@ -123,18 +117,30 @@ const GamePage = () => {
           <div className={styles.questionContainer}>
             <h3 className={styles.question}>{currentQuestion.question.text}</h3>
             <div className={styles.choicesContainer}>
-              {currentQuestion.incorrectAnswers.concat(currentQuestion.correctAnswer).sort().map((answer, index) => (
-                <label key={index} className={styles.choice}>
-                  <input
-                    type="radio"
-                    value={answer}
-                    checked={selectedAnswer === answer}
-                    onChange={handleAnswerChange}
-                    disabled={resultVisible} //Disable selection after submission
-                  />
-                  {answer}
-                </label>
-              ))}
+              {currentQuestion.incorrectAnswers.concat(currentQuestion.correctAnswer).sort().map((answer, index) => {
+                // Check if the current answer is correct and if it was selected
+                const isCorrect = answer === currentQuestion.correctAnswer;
+                const isSelected = selectedAnswer === answer;
+                const isIncorrect = resultVisible && !isCorrect;
+
+                return (
+                  <label 
+                    key={index} 
+                    className={`${styles.choice} 
+                      ${resultVisible ? (isCorrect ? styles.correct : (isIncorrect ? styles.incorrect : '')) : ''}
+                      ${isSelected && !resultVisible ? styles.selected : ''}`}
+                  >
+                    <input
+                      type="radio"
+                      value={answer}
+                      checked={selectedAnswer === answer}
+                      onChange={handleAnswerChange}
+                      disabled={resultVisible} // Disable selection after submission
+                    />
+                    {answer}
+                  </label>
+                );
+              })}
             </div>
             {!resultVisible && <button className={styles.button} onClick={handleSubmitAnswer} disabled={!selectedAnswer}>Submit Answer</button>}
           </div>

@@ -117,7 +117,26 @@
 }
 
 .choice:hover {
-  background-color: #e9ecef;
+  background-color: #D8E9FF;
+}
+
+/* Correct answer styling */
+.correct {
+  background-color: #9fd4a0; /* Green */
+  border: 3px solid #28a745;
+  /* color: white; */
+}
+
+/* Incorrect answer styling */
+.incorrect {
+  background-color: #feac9d; /* Red */
+  border: 3px solid #dc3545;
+  /* color: white; */
+}
+
+/* Optional: Highlight the selected answer while waiting for the result */
+.selected {
+  background-color: #D8E9FF; /* Light blue for selected answer */
 }
 
 .button {
