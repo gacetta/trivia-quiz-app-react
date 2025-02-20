@@ -80,15 +80,33 @@ const GamePage = () => {
     <div className={styles.pageContainer}>
       <div className={styles.appContainer}>
         <h1 className={styles.title}>Trivia Game</h1>
+        <hr className={styles.horizontalBreak} />
         <div className={styles.gameContainer}>
-          <div className={styles.gameInfoContainer}>
+          {/* <div className={styles.gameInfoContainer}>
             <p className={styles.score}>Score: {score}</p>
-            <p className={styles.questionCounter}>Question {currentQuestionIndex + 1} / {numQuestions}</p>
-          </div>
-          <div className={styles.questionInfoContainer}>
-            <p><strong>CATEGORY: </strong><i>{currentQuestion.category.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())}</i></p>
-            <p><strong>DIFFICULTY: </strong><i>{currentQuestion.difficulty.replace(/\b\w/g, (char) => char.toUpperCase())}</i></p>
-          </div>
+            <p><span className={styles.questionAttributeLabel}>QUESTION:</span> <span className={styles.questionAttributeValue}>{currentQuestionIndex + 1} / {numQuestions}</span></p>
+            <p><span className={styles.questionAttributeLabel}>CATEGORY:</span><span className={styles.questionAttributeValue}>{currentQuestion.category.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())}</span></p>
+            <p><span className={styles.questionAttributeLabel}>DIFFICULTY:</span><span className={styles.questionAttributeValue}>{currentQuestion.difficulty.replace(/\b\w/g, (char) => char.toUpperCase())}</span></p>
+          </div> */}
+          <div className={styles.gameInfoContainer}>
+            <div className={`${styles.attributeBox} ${styles.score}`}>
+                <div className={styles.attributeLabel}>Score:</div>
+                <div className={styles.attributeValue}>{score}</div>
+            </div>
+            <div className={styles.attributeBox}>
+                <div className={styles.attributeLabel}>Question:</div>
+                <div className={styles.attributeValue}>{currentQuestionIndex + 1} / {numQuestions}</div>
+            </div>
+            <div className={styles.attributeBox}>
+                <div className={styles.attributeLabel}>Category:</div>
+                <div className={styles.attributeValue}>{currentQuestion.category.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())}</div>
+            </div>
+            <div className={styles.attributeBox}>
+                <div className={styles.attributeLabel}>Difficulty:</div>
+                <div className={styles.attributeValue}>{currentQuestion.difficulty.replace(/\b\w/g, (char) => char.toUpperCase())}</div>
+            </div>
+        </div>
+          <hr className={styles.horizontalBreak} />
 
           <div className={styles.questionContainer}>
             <h3 className={styles.question}>{currentQuestion.question.text}</h3>
@@ -125,7 +143,7 @@ const GamePage = () => {
         </div>
           <nav>
           <Link to='/'>
-              <button className={styles.button}>Back to Home</button>
+              <button className={styles.button}>Start A New Game</button>
           </Link>
         </nav>
       </div>

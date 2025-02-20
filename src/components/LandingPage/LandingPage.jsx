@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './LandingPage.module.css'
@@ -9,7 +8,7 @@ const LandingPage = () => {
     // Manage State - categories, difficulty, numQuestions
     const [categories, setCategories] = useState([]);
     const [difficulty, setDifficulty] = useState([]);
-    const [numQuestions, setNumQuestions] = useState(10);
+    const [numQuestions, setNumQuestions] = useState("");
 
     // Handle Category Change (checkboxes)
     const handleCategoryChange = (event) => {
@@ -52,7 +51,7 @@ const LandingPage = () => {
             <h1 className={styles.title}>Welcome to the Trivia Quiz!</h1>
             <form className={styles.form} onSubmit={handleStartGame}>
                 {/* Categories */}
-                <h3>Select Categories:</h3>
+                <h3 className={styles.subheader}>Select Categories:</h3>
                     <div className={styles.checkboxGroup}>
                         {["music", "sport_and_leisure", "film_and_tv", "arts_and_literature", "history", "society_and_culture", "science", "geography", "general_knowledge"].map((cat) => (
                             <label key={cat} className={styles.checkboxLabel}>
@@ -68,7 +67,7 @@ const LandingPage = () => {
                         ))}
                     </div>
                 {/* Difficulty */}
-                <h3>Select Difficulty:</h3>
+                <h3 className={styles.subheader}>Select Difficulty:</h3>
                     <div className={styles.difficultyContainer}>
                         <div className={styles.difficultyGroup}>
                             {["easy", "medium", "hard"].map((level) => (
@@ -86,22 +85,25 @@ const LandingPage = () => {
                         </div>
                     </div>
                 {/* NumQuestions */}
-                <div>
-                    <h3>Number of Questions:</h3>
-                    <select value={numQuestions} onChange={handleNumQuestionsChange}>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                    </select>
+                <div className={styles.numQuestionContainer}>
+                    <h3 className={styles.subheader} htmlFor='numQuestionsInput'>Number of Questions:</h3>
+                    <input 
+                        id='numQuestionsInput'
+                        list="numQuestionsValues" 
+                        className={styles.numQuestionSelector} 
+                        value={numQuestions} 
+                        onChange={handleNumQuestionsChange}
+                        autoComplete='off'
+                    />
+                        <datalist id="numQuestionsValues">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </datalist>
                 </div>
                 <button className={styles.button} type="submit">Start New Game</button>
             </form>
-            <nav>
-            <Link to='/game'>
-                <button>To GamePage.jsx</button>
-            </Link>
-            </nav>
         </div>
     </div>
     );

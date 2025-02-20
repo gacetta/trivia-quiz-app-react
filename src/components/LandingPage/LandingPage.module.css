@@ -16,6 +16,7 @@
   align-items: center;
   width: 800px;
   max-width: 90%;
+  min-width: 360px;
   background: white;
   padding: 1rem;
   border-radius: 10px;
@@ -28,6 +29,12 @@
   margin-bottom: 1rem;
   color: #333;
   width: 100%;
+}
+
+.subheader {
+  align-self: start;
+  justify-self: start;
+  line-height: 2rem;
 }
 
 .form {
@@ -72,6 +79,20 @@
   max-width: 25rem;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   grid-auto-flow: row dense;
+}
+
+.numQuestionContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.numQuestionSelector {
+  padding: 0.2rem;
+  width: min-content;
+  max-width: 4.5rem;
+  border-radius: 3px;
 }
 
 .checkbox {
