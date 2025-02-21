@@ -28,14 +28,7 @@ const GamePage = () => {
       if (difficultyLevel) url += `${difficultyLevel}&`
       url += questionsCount
 
-
-
-      // const category = categories.join(','); // join categories for API query
-      // const difficultyLevel = difficulty.join(','); //join difficulties for API query
-      // const url = `https://the-trivia-api.com/v2/questions?categories=${category}&difficulties=${difficultyLevel}&limit=${numQuestions}`
-      
       try {
-        console.log(url)
         const response = await fetch(url)
         const data = await response.json();
         setQuestions(data);
