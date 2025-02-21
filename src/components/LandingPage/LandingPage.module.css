@@ -26,7 +26,7 @@
 .title {
   font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   color: #333;
   width: 100%;
 }
@@ -73,23 +73,23 @@
 .difficultyContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
 }
 
 .difficultyGroup {
   display: grid;
   gap: 0.5rem;
   justify-items: center;
-  align-items: start;
+  align-items: center;
   width: 100%;
   max-width: 25rem;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   grid-auto-flow: row dense;
 }
 
 .numQuestionContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   text-align: center;
 }
@@ -127,11 +127,11 @@
 } */
 
 .select {
-  padding: 0.5rem;
+  padding: 0.1rem;
   font-size: 1rem;
+  margin-left: 1rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 100%;
+  border: 1px solid #aaa;
 }
 
 .button {
@@ -144,8 +144,23 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
+  width: 100%;
+  align-self: center;
 }
 
 .button:hover {
   background-color: #0056b3;
+}
+
+.toggleButton {
+  width: fit-content;
+  /* align-self: center; */
+  padding: .1rem .3rem;
+  border-radius: 3px;
+  border: 1px solid #555;
+}
+
+.requirements {
+  /* color: darkred; */
+  font-style: italic;
 }

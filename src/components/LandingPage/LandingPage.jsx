@@ -8,8 +8,8 @@ const LandingPage = () => {
     const DIFFICULTY_LIST = ['easy', 'medium', 'hard']
 
     // Manage State - categories, difficulty, numQuestions
-    const [categories, setCategories] = useState([]);
-    const [difficulty, setDifficulty] = useState(['easy', 'medium', 'hard']);
+    const [categories, setCategories] = useState(CATEGORY_LIST);
+    const [difficulty, setDifficulty] = useState(DIFFICULTY_LIST);
     const [numQuestions, setNumQuestions] = useState(10);
     const [allCategories, setAllCategories] = useState(true)
     const [allDifficulties, setAllDifficulties] = useState(true)
@@ -36,12 +36,6 @@ const LandingPage = () => {
             prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
         );
     };
-
-    // Handle Difficulty Clear
-    const handleDifficultyClear = (event) => {
-        event.preventDefault()
-        setDifficulty([])
-    }
 
     // Handle Difficulty Toggle (Select All or None)
     const handleDifficultyToggle = (event) => {
@@ -75,12 +69,12 @@ const LandingPage = () => {
     return (
     <div className={styles.pageContainer}>
         <div className={styles.appContainer}>
-            <h1 className={styles.title}>Welcome to the Trivia Quiz!</h1>
+            <h1 className={styles.title}>Trivia Quiz!</h1>
             <form className={styles.form} onSubmit={handleStartGame}>
                 {/* Categories */}
                 <div className={styles.landingHeaders}>
                     <h3 className={styles.subheader}>Categories:</h3>
-                    <p><i>(must select at least one)</i></p>
+                    <p className={styles.requirements}>(must select at least one)</p>
                 </div>
                     <div className={styles.checkboxGroup}>
                         {CATEGORY_LIST.map((cat) => (
@@ -95,12 +89,12 @@ const LandingPage = () => {
                             {cat.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())}
                             </label>
                         ))}
-                        <button onClick={handleCategoryToggle}>Select {allCategories ? 'None' : 'All'}</button>
                     </div>
+                        <button className={styles.toggleButton} onClick={handleCategoryToggle}>✔ {allCategories ? 'None' : 'All'}</button>
                 {/* Difficulty */}
                 <div className={styles.landingHeaders}>
                     <h3 className={styles.subheader}>Difficulties:</h3>
-                    <p><i>(must select at least one)</i></p>
+                    <p className={styles.requirements}>(must select at least one)</p>
                 </div>
                     <div className={styles.difficultyContainer}>
                         <div className={styles.difficultyGroup}>
@@ -116,18 +110,19 @@ const LandingPage = () => {
                                 {level.charAt(0).toUpperCase() + level.slice(1)}
                                 </label>
                             ))}
+                            <button className={styles.toggleButton} onClick={handleDifficultyToggle}>✔ {allDifficulties ? 'None' : 'All'}</button>
                         </div>
                     </div>
-                        <button onClick={handleDifficultyToggle}>Select {allDifficulties ? 'None' : 'All'}</button>
                 {/* NumQuestions */}
                 <div className={styles.numQuestionContainer}>
                     <h3 className={styles.subheader} htmlFor='numQuestionsInput'>Number of Questions:</h3>
-                        <select name="numQuestions" id="numQuestionsInput" value={numQuestions} onChange={handleNumQuestionsChange}>
+                        <select className={styles.select} name="numQuestions" id="numQuestionsInput" value={numQuestions} onChange={handleNumQuestionsChange}>
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>
                             <option value="25">25</option>
+                            <option value="30">30</option>
                         </select>
                     {/* <input 
                         id='numQuestionsInput'
