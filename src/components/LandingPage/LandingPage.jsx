@@ -4,11 +4,15 @@ import styles from './LandingPage.module.css'
 
 const LandingPage = () => {
     const navigate = useNavigate();
+    const CATEGORY_LIST = ["music", "sport_and_leisure", "film_and_tv", "arts_and_literature", "history", "society_and_culture", "science", "geography", "general_knowledge"]
+    const DIFFICULTY_LIST = ['easy', 'medium', 'hard']
 
     // Manage State - categories, difficulty, numQuestions
     const [categories, setCategories] = useState([]);
-    const [difficulty, setDifficulty] = useState([]);
-    const [numQuestions, setNumQuestions] = useState("");
+    const [difficulty, setDifficulty] = useState(['easy', 'medium', 'hard']);
+    const [numQuestions, setNumQuestions] = useState(10);
+    const [allCategories, setAllCategories] = useState(true)
+    const [allDifficulties, setAllDifficulties] = useState(true)
 
     // Handle Category Change (checkboxes)
     const handleCategoryChange = (event) => {
@@ -18,6 +22,13 @@ const LandingPage = () => {
         );
     };
 
+    // Handle Category Toggle (Select All or None)
+    const handleCategoryToggle = (event) => {
+        event.preventDefault()
+        setCategories(allCategories ? [] : CATEGORY_LIST)
+        setAllCategories(!allCategories)
+    }
+
     // Handle Difficulty Change (checkboxes)
     const handleDifficultyChange = (event) => {
         const value = event.target.value;
@@ -25,6 +36,20 @@ const LandingPage = () => {
             prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]
         );
     };
+
+    // Handle Difficulty Clear
+    const handleDifficultyClear = (event) => {
+        event.preventDefault()
+        setDifficulty([])
+    }
+
+    // Handle Difficulty Toggle (Select All or None)
+    const handleDifficultyToggle = (event) => {
+        event.preventDefault()
+        setDifficulty(allDifficulties ? [] : DIFFICULTY_LIST)
+        setAllDifficulties(!allDifficulties)
+    }
+    
 
     // Handle number of questions (dropdown)
     const handleNumQuestionsChange = (event) => {
@@ -53,9 +78,12 @@ const LandingPage = () => {
             <h1 className={styles.title}>Welcome to the Trivia Quiz!</h1>
             <form className={styles.form} onSubmit={handleStartGame}>
                 {/* Categories */}
-                <h3 className={styles.subheader}>Select Categories:</h3>
+                <div className={styles.landingHeaders}>
+                    <h3 className={styles.subheader}>Categories:</h3>
+                    <p><i>(must select at least one)</i></p>
+                </div>
                     <div className={styles.checkboxGroup}>
-                        {["music", "sport_and_leisure", "film_and_tv", "arts_and_literature", "history", "society_and_culture", "science", "geography", "general_knowledge"].map((cat) => (
+                        {CATEGORY_LIST.map((cat) => (
                             <label key={cat} className={styles.checkboxLabel}>
                             <input
                                 type="checkbox"
@@ -67,12 +95,16 @@ const LandingPage = () => {
                             {cat.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())}
                             </label>
                         ))}
+                        <button onClick={handleCategoryToggle}>Select {allCategories ? 'None' : 'All'}</button>
                     </div>
                 {/* Difficulty */}
-                <h3 className={styles.subheader}>Select Difficulty:</h3>
+                <div className={styles.landingHeaders}>
+                    <h3 className={styles.subheader}>Difficulties:</h3>
+                    <p><i>(must select at least one)</i></p>
+                </div>
                     <div className={styles.difficultyContainer}>
                         <div className={styles.difficultyGroup}>
-                            {["easy", "medium", "hard"].map((level) => (
+                            {DIFFICULTY_LIST.map((level) => (
                                 <label key={level} className={styles.checkboxLabel}>
                                 <input
                                     type="checkbox"
@@ -86,10 +118,18 @@ const LandingPage = () => {
                             ))}
                         </div>
                     </div>
+                        <button onClick={handleDifficultyToggle}>Select {allDifficulties ? 'None' : 'All'}</button>
                 {/* NumQuestions */}
                 <div className={styles.numQuestionContainer}>
                     <h3 className={styles.subheader} htmlFor='numQuestionsInput'>Number of Questions:</h3>
-                    <input 
+                        <select name="numQuestions" id="numQuestionsInput" value={numQuestions} onChange={handleNumQuestionsChange}>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                        </select>
+                    {/* <input 
                         id='numQuestionsInput'
                         list="numQuestionsValues" 
                         className={styles.numQuestionSelector} 
@@ -102,7 +142,7 @@ const LandingPage = () => {
                             <option value="10">10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>
-                        </datalist>
+                        </datalist> */}
                 </div>
                 <button className={styles.button} type="submit">Start New Game</button>
             </form>
