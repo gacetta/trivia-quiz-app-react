@@ -37,46 +37,47 @@
 
 .gameInfoContainer {
     display: flex;
-    flex-direction: column;
     gap: .5rem;
     align-items: start;
+    justify-content: space-between;
     padding: 0 .5rem;
 }
 
-.attributeBox {
-    display: grid;
-    grid-template-columns: 7rem 1fr;  /* 1fr for the label, 2fr for the value */
-    align-items: start;  /* Vertically center label and value */
-    width: 100%;  /* Full width of the container */
+.scoreContainer {
+  display: flex;
+  gap: .5rem;
 }
 
-.attributeLabel {
-    font-weight: bold;
-    text-align: start;  
-    text-transform: uppercase;
-}
-
-.attributeValue {
-    text-align: start;
-    font-style: italic;
-}
-
-
-.score {
+.scoreLabel {
   font-weight: bold;
 }
 
+.scoreValue {
+  font-style: italic;
+}
+
 .questionCounter {
-  font-weight: 800;
+  font-weight: 300;
 }
 
 /* question info styling (category and difficulty) */
 .questionInfoContainer {
   /* border: 2px solid rebeccapurple; */
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  align-items: center;
   gap: .5rem;
+  padding: 0 .5rem;
+  margin-bottom: .5rem;
+}
+
+.categoryHeader {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.category {
+  font-style: italic;
 }
 
 .questionContainer {
@@ -122,14 +123,14 @@
 
 /* Correct answer styling */
 .correct {
-  background-color: #9fd4a0; /* Green */
+  background-color: #0f9c110f; /* Green */
   border: 3px solid #28a745;
   /* color: white; */
 }
 
 /* Incorrect answer styling */
 .incorrect {
-  background-color: #feac9d; /* Red */
+  background-color: #ff2c2c14;
   border: 3px solid #dc3545;
   /* color: white; */
 }
@@ -155,4 +156,11 @@
 
 .button:hover {
   background-color: #0056b3;
+}
+
+.buttonRestart {
+  padding: .25rem;
+  align-self: flex-end;
+  font-size: small;
+  justify-self: flex-end;
 }
