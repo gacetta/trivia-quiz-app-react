@@ -84,30 +84,25 @@ const GamePage = () => {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.appContainer}>
-        <h1 className={styles.title}>Trivia Game</h1>
-        <hr className={styles.horizontalBreak} />
         <div className={styles.gameContainer}>
           <div className={styles.gameInfoContainer}>
-            <div className={`${styles.attributeBox} ${styles.score}`}>
-                <div className={styles.attributeLabel}>Score:</div>
-                <div className={styles.attributeValue}>{score}</div>
+            <div className={styles.scoreContainer}>
+              <div className={styles.scoreLabel}>Score:</div>
+              <div className={styles.scoreValue}>{score}</div>
             </div>
-            <div className={styles.attributeBox}>
-                <div className={styles.attributeLabel}>Question:</div>
-                <div className={styles.attributeValue}>{currentQuestionIndex + 1} / {numQuestions}</div>
+            <div className={styles.questionNumberContainer}>
+              <div className={styles.questionCounter}>{currentQuestionIndex + 1} / {numQuestions}</div>
             </div>
-            <div className={styles.attributeBox}>
-                <div className={styles.attributeLabel}>Category:</div>
-                <div className={styles.attributeValue}>{currentQuestion.category.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())}</div>
-            </div>
-            <div className={styles.attributeBox}>
-                <div className={styles.attributeLabel}>Difficulty:</div>
-                <div className={styles.attributeValue}>{currentQuestion.difficulty.replace(/\b\w/g, (char) => char.toUpperCase())}</div>
-            </div>
-        </div>
+          </div>
+
           <hr className={styles.horizontalBreak} />
 
           <div className={styles.questionContainer}>
+            <div className={styles.questionInfoContainer}>
+              {/* <div className={styles.categoryHeader}>Category:</div> */}
+              <div className={styles.category}>{currentQuestion.category.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())} - {currentQuestion.difficulty.replace(/\b\w/g, (char) => char.toUpperCase())}</div>
+            </div>
+
             <h3 className={styles.question}>{currentQuestion.question.text}</h3>
             <div className={styles.choicesContainer}>
               {currentQuestion.incorrectAnswers.concat(currentQuestion.correctAnswer).sort().map((answer, index) => {
@@ -152,11 +147,11 @@ const GamePage = () => {
           )}  
 
         </div>
-          <nav>
+        {/* <nav>
           <Link to='/'>
-              <button className={styles.button}>Start A New Game</button>
+              <button className={styles.buttonRestart}>new game</button>
           </Link>
-        </nav>
+        </nav> */}
       </div>
     </div>
   );
