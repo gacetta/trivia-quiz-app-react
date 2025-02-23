@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import styles from './GamePage.module.css'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import styles from './GamePage.module.css';
 
 const GamePage = () => {
   const navigate = useNavigate();
@@ -19,44 +19,48 @@ const GamePage = () => {
   // Fetch trivia questions based on selected categories, difficulty and numQuestions
   useEffect(() => {
     const fetchQuestions = async () => {
-      const category = categories.length > 0 ? `categories=${categories.join(',')}` : ''; // Default to all categories if empty
-      const difficultyLevel = difficulty.length > 0 ? `difficulties=${difficulty.join(',')}` : ''; // Default to all difficulties if empty
-      const questionsCount = numQuestions > 0 ? `limit=${numQuestions}` : `limit=10`; // Default to 10 questions if not selected
-      let url = `https://the-trivia-api.com/v2/questions?`
+      const category =
+        categories.length > 0 ? `categories=${categories.join(',')}` : ''; // Default to all categories if empty
+      const difficultyLevel =
+        difficulty.length > 0 ? `difficulties=${difficulty.join(',')}` : ''; // Default to all difficulties if empty
+      const questionsCount =
+        numQuestions > 0 ? `limit=${numQuestions}` : `limit=10`; // Default to 10 questions if not selected
+      let url = `https://the-trivia-api.com/v2/questions?`;
 
-      if (category) url += `${category}&`
-      if (difficultyLevel) url += `${difficultyLevel}&`
-      url += questionsCount
+      if (category) url += `${category}&`;
+      if (difficultyLevel) url += `${difficultyLevel}&`;
+      url += questionsCount;
 
       try {
-        const response = await fetch(url)
+        const response = await fetch(url);
         const data = await response.json();
         setQuestions(data);
       } catch (error) {
-        console.error('Error fetching questions: ', error)
+        console.error('Error fetching questions: ', error);
       }
     };
 
     fetchQuestions();
-  }, [categories, difficulty, numQuestions])
+  }, [categories, difficulty, numQuestions]);
 
   // handle answer selection
   const handleAnswerChange = (event) => {
     setSelectedAnswer(event.target.value);
   };
-  
+
   // check the answer and move to next questions
   const handleSubmitAnswer = () => {
     if (!selectedAnswer) return; // Prevent submitting without an answer
 
-    const isCorrect = selectedAnswer === questions[currentQuestionIndex].correctAnswer
+    const isCorrect =
+      selectedAnswer === questions[currentQuestionIndex].correctAnswer;
     setIsAnswerCorrect(isCorrect);
     setResultVisible(true);
 
     if (isCorrect) {
       setScore(score + 1);
     }
-  }
+  };
 
   // Move to the next question
   const handleNextQuestion = () => {
@@ -75,11 +79,10 @@ const GamePage = () => {
 
   // display the current question and options:
   if (questions.length === 0) {
-    return <p>Loading questions...</p>
+    return <p>Loading questions...</p>;
   }
 
   const currentQuestion = questions[currentQuestionIndex];
-
 
   return (
     <div className={styles.pageContainer}>
@@ -91,7 +94,9 @@ const GamePage = () => {
               <div className={styles.scoreValue}>{score}</div>
             </div>
             <div className={styles.questionNumberContainer}>
-              <div className={styles.questionCounter}>{currentQuestionIndex + 1} / {numQuestions}</div>
+              <div className={styles.questionCounter}>
+                {currentQuestionIndex + 1} / {numQuestions}
+              </div>
             </div>
           </div>
 
@@ -100,52 +105,80 @@ const GamePage = () => {
           <div className={styles.questionContainer}>
             <div className={styles.questionInfoContainer}>
               {/* <div className={styles.categoryHeader}>Category:</div> */}
-              <div className={styles.category}>{currentQuestion.category.replace(/_/g, " ").replace(/\band\b/g, "&").replace(/\b\w/g, (char) => char.toUpperCase())} - {currentQuestion.difficulty.replace(/\b\w/g, (char) => char.toUpperCase())}</div>
+              <div className={styles.category}>
+                {currentQuestion.category
+                  .replace(/_/g, ' ')
+                  .replace(/\band\b/g, '&')
+                  .replace(/\b\w/g, (char) => char.toUpperCase())}{' '}
+                -{' '}
+                {currentQuestion.difficulty.replace(/\b\w/g, (char) =>
+                  char.toUpperCase()
+                )}
+              </div>
             </div>
 
             <h3 className={styles.question}>{currentQuestion.question.text}</h3>
             <div className={styles.choicesContainer}>
-              {currentQuestion.incorrectAnswers.concat(currentQuestion.correctAnswer).sort().map((answer, index) => {
-                // Check if the current answer is correct and if it was selected
-                const isCorrect = answer === currentQuestion.correctAnswer;
-                const isSelected = selectedAnswer === answer;
-                const isIncorrect = resultVisible && !isCorrect;
+              {currentQuestion.incorrectAnswers
+                .concat(currentQuestion.correctAnswer)
+                .sort()
+                .map((answer, index) => {
+                  // Check if the current answer is correct and if it was selected
+                  const isCorrect = answer === currentQuestion.correctAnswer;
+                  const isSelected = selectedAnswer === answer;
+                  const isIncorrect = resultVisible && !isCorrect;
 
-                return (
-                  <label 
-                    key={index} 
-                    className={`${styles.choice} 
-                      ${resultVisible ? (isCorrect ? styles.correct : (isIncorrect ? styles.incorrect : '')) : ''}
+                  return (
+                    <label
+                      key={index}
+                      className={`${styles.choice} 
+                      ${
+                        resultVisible
+                          ? isCorrect
+                            ? styles.correct
+                            : isIncorrect
+                            ? styles.incorrect
+                            : ''
+                          : ''
+                      }
                       ${isSelected && !resultVisible ? styles.selected : ''}`}
-                  >
-                    <input
-                      type="radio"
-                      value={answer}
-                      checked={selectedAnswer === answer}
-                      onChange={handleAnswerChange}
-                      disabled={resultVisible} // Disable selection after submission
-                    />
-                    {answer}
-                  </label>
-                );
-              })}
+                    >
+                      <input
+                        type="radio"
+                        value={answer}
+                        checked={selectedAnswer === answer}
+                        onChange={handleAnswerChange}
+                        disabled={resultVisible} // Disable selection after submission
+                      />
+                      {answer}
+                    </label>
+                  );
+                })}
             </div>
-            {!resultVisible && <button className={styles.button} onClick={handleSubmitAnswer} disabled={!selectedAnswer}>Submit Answer</button>}
+            {!resultVisible && (
+              <button
+                className={styles.button}
+                onClick={handleSubmitAnswer}
+                disabled={!selectedAnswer}
+              >
+                Submit Answer
+              </button>
+            )}
           </div>
-
 
           {/* Show feedback after answer is submitted */}
           {resultVisible && (
             <div>
               <p style={{ color: isAnswerCorrect ? 'green' : 'red' }}>
-                {isAnswerCorrect ? "Correct! 🎉" : "Incorrect 😞"}
+                {isAnswerCorrect ? 'Correct! 🎉' : 'Incorrect 😞'}
               </p>
               <button className={styles.button} onClick={handleNextQuestion}>
-                {currentQuestionIndex + 1 < numQuestions ? "Next Question" : "New Game"}
+                {currentQuestionIndex + 1 < numQuestions
+                  ? 'Next Question'
+                  : 'New Game'}
               </button>
             </div>
-          )}  
-
+          )}
         </div>
         {/* <nav>
           <Link to='/'>
