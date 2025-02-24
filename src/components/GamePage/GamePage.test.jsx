@@ -53,7 +53,7 @@ describe('GamePage Component', () => {
 
     // Wait for the fetch to complete and the content to be rendered
     await waitFor(() => {
-      expect(screen.getByText(/category/i)).toBeInTheDocument();
+      expect(screen.getByText(/score/i)).toBeInTheDocument();
     });
   });
 });

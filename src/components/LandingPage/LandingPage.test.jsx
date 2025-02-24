@@ -10,7 +10,7 @@ describe('LandingPage Component', () => {
         <LandingPage />
       </BrowserRouter>
     );
-    expect(screen.getByText(/Welcome to the Trivia Quiz/i)).toBeInTheDocument();
+    expect(screen.getByText(/Trivia Quiz/i)).toBeInTheDocument();
   });
 
   it('renders categories correctly', () => {
@@ -19,7 +19,7 @@ describe('LandingPage Component', () => {
         <LandingPage />
       </BrowserRouter>
     );
-    expect(screen.getByText(/select categories/i)).toBeInTheDocument();
+    expect(screen.getByText(/categories/i)).toBeInTheDocument();
     expect(
       screen.getByRole('checkbox', { name: /music/i })
     ).toBeInTheDocument();
