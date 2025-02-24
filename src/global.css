@@ -15,12 +15,16 @@ html {
 }
 
 /* Remove default list styles */
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
 /* Ensure buttons, inputs, and links inherit font styles */
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font: inherit;
 }
 
