@@ -137,8 +137,8 @@ const GamePage = () => {
                           ? isCorrect
                             ? styles.correct
                             : isIncorrect
-                            ? styles.incorrect
-                            : ''
+                              ? styles.incorrect
+                              : ''
                           : ''
                       }
                       ${isSelected && !resultVisible ? styles.selected : ''}`}

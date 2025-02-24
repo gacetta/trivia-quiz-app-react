@@ -20,15 +20,33 @@ describe('LandingPage Component', () => {
       </BrowserRouter>
     );
     expect(screen.getByText(/select categories/i)).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /music/i })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /sport & leisure/i })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /film & tv/i })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /arts & literature/i })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /history/i })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /society & culture/i })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /science/i })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /geography/i })).toBeInTheDocument();
-    expect(screen.getByRole('checkbox', { name: /general knowledge/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /music/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /sport & leisure/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /film & tv/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /arts & literature/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /history/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /society & culture/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /science/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /geography/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: /general knowledge/i })
+    ).toBeInTheDocument();
   });
 
   it('renders a start button', () => {
@@ -37,6 +55,8 @@ describe('LandingPage Component', () => {
         <LandingPage />
       </BrowserRouter>
     );
-    expect(screen.getByRole('button', { name: /Start New Game/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /Start New Game/i })
+    ).toBeInTheDocument();
   });
 });
