@@ -102,7 +102,7 @@
 }
 
 .checkbox {
-  appearance: none;
+  /* appearance: none; */
   width: 18px;
   height: 18px;
   border: 2px solid #007bff;
@@ -120,12 +120,13 @@
 }
 
 /* .checkbox:checked::after {
-  content: '✔';
+  content: 'x';
   color: white;
-  font-size: 14px;
+  font-size: 18px;
+  width: 16px;
+  height: 16px;
   position: absolute;
-  left: 3px;
-  top: 1px;
+  border: 1px solid green;
 } */
 
 .select {
@@ -163,6 +164,16 @@
 }
 
 .requirements {
-  /* color: darkred; */
   font-style: italic;
+}
+
+.error {
+  color: red;
+  /* font-weight: bold; */
+}
+
+.buttonError {
+  background-color: rgba(173, 171, 171, 0.441);
+  color: black;
+  /* font-weight: bold; */
 }

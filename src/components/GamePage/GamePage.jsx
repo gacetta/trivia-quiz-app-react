@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './GamePage.module.css';
 
 const GamePage = () => {
@@ -137,8 +137,8 @@ const GamePage = () => {
                           ? isCorrect
                             ? styles.correct
                             : isIncorrect
-                              ? styles.incorrect
-                              : ''
+                            ? styles.incorrect
+                            : ''
                           : ''
                       }
                       ${isSelected && !resultVisible ? styles.selected : ''}`}

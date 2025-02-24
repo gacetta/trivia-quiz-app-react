@@ -27,11 +27,16 @@ const LandingPage = () => {
   // Handle Category Change (checkboxes)
   const handleCategoryChange = (event) => {
     const value = event.target.value;
-    setCategories((prev) =>
-      prev.includes(value)
+    setCategories((prev) => {
+      const newCategories = prev.includes(value)
         ? prev.filter((item) => item !== value)
-        : [...prev, value]
-    );
+        : [...prev, value];
+
+      if (newCategories.length === 0) setAllCategories(false);
+      else setAllCategories(true);
+
+      return newCategories;
+    });
   };
 
   // Handle Category Toggle (Select All or None)
@@ -44,11 +49,16 @@ const LandingPage = () => {
   // Handle Difficulty Change (checkboxes)
   const handleDifficultyChange = (event) => {
     const value = event.target.value;
-    setDifficulty((prev) =>
-      prev.includes(value)
+    setDifficulty((prev) => {
+      const newDifficulties = prev.includes(value)
         ? prev.filter((item) => item !== value)
-        : [...prev, value]
-    );
+        : [...prev, value];
+
+      if (newDifficulties.length === 0) setAllDifficulties(false);
+      else setAllDifficulties(true);
+
+      return newDifficulties;
+    });
   };
 
   // Handle Difficulty Toggle (Select All or None)
@@ -87,7 +97,7 @@ const LandingPage = () => {
           {/* Categories */}
           <div className={styles.landingHeaders}>
             <h3 className={styles.subheader}>Categories:</h3>
-            <p className={styles.requirements}>(must select at least one)</p>
+            <p className={`${styles.requirements} ${!allCategories ? styles.error : ''}`}>(must select at least one)</p>
           </div>
           <div className={styles.checkboxGroup}>
             {CATEGORY_LIST.map((cat) => (
@@ -115,7 +125,7 @@ const LandingPage = () => {
           {/* Difficulty */}
           <div className={styles.landingHeaders}>
             <h3 className={styles.subheader}>Difficulties:</h3>
-            <p className={styles.requirements}>(must select at least one)</p>
+            <p className={`${styles.requirements} ${!allDifficulties ? styles.error : ''}`}>(must select at least one)</p>
           </div>
           <div className={styles.difficultyContainer}>
             <div className={styles.difficultyGroup}>
@@ -173,7 +183,7 @@ const LandingPage = () => {
                             <option value="20">20</option>
                         </datalist> */}
           </div>
-          <button className={styles.button} type="submit">
+          <button className={`${styles.button} ${(!allCategories || !allDifficulties) ? styles.buttonError : ''}`} type="submit" disabled={!allCategories || !allDifficulties}>
             Start New Game
           </button>
         </form>
